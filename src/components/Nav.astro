@@ -1,0 +1,34 @@
+---
+---
+
+<header class="site-header">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="logo text-xl font-bold text-white">Beyza</a>
+    <nav>
+      <a href="/" class="nav-link mr-4">ANA SAYFA   </a>
+      <a href="/Workshop" class="nav-link">   O-KOD-OMÜ</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+:global(.site-header) {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 120%);
+}
+:global(.logo) {
+  color: var(--text-on-primary);
+  text-decoration: none;
+}
+:global(.nav-link) {
+  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+  font-weight: 600;
+}
+:global(.nav-link:hover) {
+  opacity: 0.9;
+}
+:global(.site-header .container){
+  max-width: 1200px;
+  margin: 0 auto;
+}
+</style>

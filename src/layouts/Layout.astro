@@ -1,23 +1,44 @@
+---
+import Nav from '../components/Nav.astro';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href="/public/BeyzaPortfolio.ico" />
+		<link rel="icon" href="/public/BeyzaPortfolio.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
 	<body>
+		<Nav />
 		<slot />
 	</body>
 </html>
 
 <style>
+	:root{
+		--color-primary: #d946ef; /* fuchsia */
+		--color-primary-600: #be1fbf;
+		--color-accent: #f5c6e6; /* dusty pink */
+		--color-muted: #6b7280;
+		--bg-start: #fff5f9;
+		--bg-end: #fff0f6;
+		--text-on-primary: #ffffff;
+		--card-bg: #ffffff;
+	}
+
 	html,
 	body {
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+		color: #111827;
+		font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 	}
+
+	a { color: var(--color-primary); }
 </style>

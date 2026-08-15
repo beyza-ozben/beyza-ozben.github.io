@@ -1,0 +1,37 @@
+---
+// Component Prop'larını (Dışarıdan gelen verileri) tanımlayın
+interface Props {
+  title: string;
+  category: string;
+  attendees: number;
+  description: string;
+}
+
+const { title, category, attendees, description } = Astro.props;
+---
+
+<div class="event-card">
+  <div class="event-meta">
+    <span class="event-category">{category}</span>
+    <span class="event-attendees">👥 {attendees}+ Katılımcı</span>
+  </div>
+  <h3 class="event-title">{title}</h3>
+  <p class="event-desc">{description}</p>
+</div>
+
+<style>
+  .event-card{
+    background: var(--card-bg);
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 18px 35px rgba(15,23,42,0.06);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .event-card:hover{ transform: translateY(-6px); box-shadow: 0 30px 60px rgba(15,23,42,0.08); }
+  .event-meta{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .event-category{ font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; background: linear-gradient(90deg, var(--color-primary)33, var(--color-accent)); color: var(--text-on-primary); }
+  .event-attendees{ color: var(--color-muted); font-size:12px }
+  .event-title{ margin:0 0 8px; font-size:18px; color:#111827 }
+  .event-desc{ margin:0; color: #4b5563; font-size:14px }
+</style>

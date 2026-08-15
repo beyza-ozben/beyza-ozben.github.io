@@ -1,0 +1,505 @@
+---
+const teamPhotos = [
+  {
+    src: 'W-Ekip.jpg',
+    alt: 'Bu şahane etkinliğin arkasındaki o ekip.',
+  },
+];
+
+const workshopPhotos = [
+  {
+    src: 'W-TopluFotoğraf1.jpg',
+    alt: 'Workshop etkinliği sırasında ekip çalışması',
+  },
+  {
+    src: 'W-TopluFotoğraf2.jpg',
+    alt: 'Workshop sırasında sunum ve tartışma',
+  },
+  {
+    src: 'W-TopluFotoğraf3.jpg',
+    alt: 'Katılımcılar birlikte çalışıyor',
+  },
+  {
+    src: 'W-TopluFotoğraf4.jpg',
+    alt: 'Workshop sonrası takım fotoğrafı',
+  },
+];
+
+const awardPhotos = [
+  {
+    src: '/W-HediyeBeyza.jpg',
+    alt: 'Ödül töreni - birinci ekip fotoğrafı',
+  },
+  {
+    src: '/W-HediyeOğuzHoca.jpg',
+    alt: 'Ödül alan takım ve ödül plaketi',
+  },
+  {
+    src: '/W-HediyeDuyguHoca.jpg',
+    alt: 'Birinci ekip üyeleri poz veriyor',
+  },
+  {
+    src: '/W-HediyeErdalHoca.jpg',
+    alt: 'Ödül verme anı',
+  },
+];
+
+/**
+ * Normalize image path to start with '/'.
+ * @param {string|undefined|null} p
+ * @returns {string}
+ */
+function resolvePath(p = ''){
+  if (!p) return '';
+  if (p.startsWith('/public/')) return p.replace(/^\/public\//, '/');
+  if (p.startsWith('/')) return p;
+  return `/${p}`;
+}
+---
+
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O-KOD-OMÜ</title>
+  </head>
+  <body>
+    <div class="team-top">
+      {teamPhotos.map((photo) => (
+        <figure class="team-card">
+          <img class="enlargeable" src={resolvePath(photo.src)} alt={photo.alt} />
+        </figure>
+      ))}
+      <div class="top-links">
+        <a href="/" class="back-home">← Ana Sayfaya Dön</a>
+      </div>
+    </div>
+
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">O-KOD-OMÜ</p>
+        <h1>Workshop’ta yaptıklarımız</h1>
+        <p class="intro">
+          Bu workshop boyunca birlikte öğrenme, üretme ve ekip çalışması ruhunu yaşadık.
+          Katılımcılar olarak fikirleri hayata geçirdik, birlikte problem çözdük ve yeni
+          deneyimler kazandık. Her aşamada fikirlerin konuşulması, uygulamaya dönüştürülmesi
+          ve ortak hedefler doğrultusunda ilerlenmesi bizim için en değerli anlardan biri oldu.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <h2>Etkinlik anı</h2>
+        </div>
+
+        <div class="gallery">
+          {workshopPhotos.map((photo) => (
+            <figure class="card">
+              <img class="enlargeable" src={resolvePath(photo.src)} alt={photo.alt} />
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section class="section highlight">
+        <div class="section-heading">
+          <h2>Yaptıklarımız</h2>
+        </div>
+
+        <div class="content-grid">
+          <div class="text-block">
+            <p>
+              Workshop boyunca katılımcılar arasında güçlü bir iş birliği oluştu. Farklı bakış
+              açılarıyla fikir üretildi, ortak çözümler geliştirildi ve uygulama süreci aktif bir
+              şekilde yürütüldü.
+            </p>
+            <p>
+              Çalışmalarımız sırasında ekipler kendi hedeflerine odaklanırken, aynı zamanda birlikte
+              öğrenmeyi ve üretmeyi ön planda tuttular. Bu deneyim, hem teknik bilgi hem de ekip
+              dinamiği açısından oldukça değerli bir süreç oldu.
+            </p>
+          </div>
+
+          <div class="facts">
+            <div>
+              <strong>4</strong>
+              <span>Ödül alan ekip üyesi</span>
+            </div>
+            <div>
+              <strong>1</strong>
+              <span>Birincilik</span>
+            </div>
+            <div>
+              <strong>3+</strong>
+              <span>Etkinlik fotoğrafı</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <h2>Birinci ekip ve ödül</h2>
+        </div>
+
+        <p class="award-text">
+          Etkinlik sonrası en iyi performansı sergileyen ekip, çalışmalarıyla dikkat çekerek
+          birinci oldu. Takımımızın 4 üyesi için ödül töreni düzenlendi ve başarıları kutlandı.
+        </p>
+
+        <div class="gallery award-gallery">
+          {awardPhotos.map((photo) => (
+            <figure class="card">
+              <img class="enlargeable" src={resolvePath(photo.src)} alt={photo.alt} />
+            </figure>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <!-- Image modal -->
+    <div id="image-modal" class="image-modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" id="modal-backdrop"></div>
+      <div class="modal-content" role="dialog" aria-modal="true">
+        <button id="modal-close" class="modal-close" aria-label="Kapat">×</button>
+        <img id="modal-img" src="" alt="" />
+        <p id="modal-caption" class="modal-caption"></p>
+      </div>
+    </div>
+
+    <script>
+      // @ts-nocheck
+      (function(){
+        /** @type {HTMLElement | null} */
+        const modal = document.getElementById('image-modal');
+        /** @type {HTMLImageElement | null} */
+        const modalImg = /** @type {HTMLImageElement | null} */(document.getElementById('modal-img'));
+        /** @type {HTMLElement | null} */
+        const modalCaption = document.getElementById('modal-caption');
+        /** @type {HTMLElement | null} */
+        const modalClose = document.getElementById('modal-close');
+        /** @type {HTMLElement | null} */
+        const backdrop = document.getElementById('modal-backdrop');
+
+        /**
+         * @param {string} src
+         * @param {string} alt
+         */
+        /**
+         * @param {string} src
+         * @param {string} alt
+         */
+        function openModal(src, alt){
+          if (!modal) return;
+          if (modalImg instanceof HTMLImageElement) { modalImg.src = src || ''; modalImg.alt = alt || ''; }
+          if (modalCaption) modalCaption.textContent = alt || '';
+          modal.classList.remove('hidden');
+          modal.style.display = 'grid';
+          modal.setAttribute('aria-hidden','false');
+          document.body.style.overflow = 'hidden';
+          if (modalClose) setTimeout(()=> modalClose.focus(), 50);
+        }
+
+        function closeModal(){
+          if (!modal) return;
+          modal.classList.add('hidden');
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden','true');
+          if (modalImg instanceof HTMLImageElement) modalImg.src = '';
+          if (modalCaption) modalCaption.textContent = '';
+          document.body.style.overflow = '';
+        }
+
+        document.addEventListener('click', (e)=>{
+          const t = e.target;
+          if (!(t instanceof HTMLElement)) return;
+          let imgEl = t.closest('.enlargeable');
+          if (!imgEl && t.classList && t.classList.contains('enlargeable')) imgEl = t;
+          if (imgEl instanceof HTMLImageElement) {
+            const src = imgEl.getAttribute('src') || imgEl.dataset.src || '';
+            openModal(String(src), imgEl.getAttribute('alt') || '');
+          }
+        });
+
+        if (modalClose) modalClose.addEventListener('click', closeModal);
+        if (backdrop) backdrop.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+      })();
+    </script>
+
+</body>
+</html>
+
+<style>
+  :global(body) {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg, #f5f7ff 0%, #eef2ff 100%);
+    color: #1f2937;
+  }
+
+  .team-top {
+    background: linear-gradient(90deg, rgba(217,70,239,0.06), rgba(245,198,230,0.04));
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .team-card {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 9999px;
+    box-shadow: 0 8px 20px rgba(15,23,42,0.08);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .team-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .top-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  /* plain text link instead of pill/button */
+  .back-home {
+    color: var(--color-primary-600);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    text-decoration: none;
+    box-shadow: none;
+    font-weight: 400;
+    font-size: 0.95rem;
+    align-self: center;
+  }
+
+  .back-home:hover {
+    text-decoration: underline;
+    opacity: 0.95;
+  }
+
+  /* Modal styles */
+  .hidden { display: none; }
+
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .image-modal:not(.hidden) { pointer-events: auto; }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+  }
+
+  .modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 12px;
+    box-sizing: border-box;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+  }
+
+  .modal-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 30px 60px rgba(2,6,23,0.6);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(15,23,42,0.12);
+    z-index: 3;
+  }
+
+  .hidden { display: none !important; }
+
+  .modal-caption {
+    color: #fff;
+    margin: 0;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 32px 0 36px;
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.1;
+  }
+
+  .intro {
+    max-width: 760px;
+    margin: 24px auto 0;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: #4b5563;
+  }
+
+  .section {
+    margin-top: 48px;
+  }
+
+  .section-heading {
+    margin-bottom: 24px;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 18px 35px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .card img {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+  }
+
+  .highlight {
+    padding: 28px 24px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(245,198,230,0.08), rgba(255,240,249,0.04));
+    border: 1px solid rgba(217,70,239,0.12);
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .text-block p {
+    margin: 0 0 16px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #374151;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(110px, 1fr));
+    gap: 16px;
+  }
+
+  .facts div {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.06);
+  }
+
+  .facts strong {
+    display: block;
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+  }
+
+  .facts span {
+    font-size: 0.9rem;
+    color: #4b5563;
+  }
+
+  .award-text {
+    max-width: 780px;
+    margin: 0 0 24px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #374151;
+  }
+
+  @media (max-width: 760px) {
+    .page {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .facts {
+      grid-template-columns: repeat(3, minmax(90px, 1fr));
+    }
+  }
+</style>
