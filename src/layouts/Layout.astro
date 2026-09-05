@@ -42,4 +42,21 @@ import Nav from '../components/Nav.astro';
 	}
 
 	a { color: var(--accent-1); text-decoration: none; }
+
+	/* Global image hover zoom: tüm sayfalardaki ana içerik görsellerine uygulanır */
+	:global(main img), :global(.page img) {
+		transition: transform 160ms ease, filter 160ms ease;
+		will-change: transform;
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	:global(main img:hover), :global(.page img:hover) {
+		transform: scale(1.06);
+	}
+
+	/* Daha doğal bir etki için resimleri kapsayan konteynırlara overflow gizlemesi
+	   uygularsanız kenar taşmalarını engellersiniz. Bunu kullanmak isterseniz
+	   ilgili elementlere `overflow: hidden` ekleyin. */
 </style>

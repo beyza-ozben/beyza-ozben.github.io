@@ -21,7 +21,6 @@ const posters = [
 
 const gallery = [
   { src: 'CStanıtım-toplu.jpg', alt: 'CS komitesi tanıtım ve tanışma toplantısı' },
-  { src: 'CSTanıtım-beyza.jpg', alt: 'CS komitesi tanıtım ve tanışma toplantısı' },
   { src: 'YapayZeka-BeyzaToplu.jpg', alt: 'Yapay zeka 101, K-Means Algoritması toplu fotoğrafı' },
   { src: 'python-toplu.jpg', alt: 'Python 101 mentörlük eğitimi' },
   { src: 'PythonMentörlükToplu.jpg', alt: 'Python 101 mentörlük eğitimi' },
@@ -41,9 +40,9 @@ const resolveImage = (filename: string) => `/${encodeURIComponent(filename)}`;
       <p class="eyebrow">Mentörlük</p>
       <h1>Komite Eğitimleri</h1>
       <div class="intro intro-block">
-      <p class="intro">
-        Komite eğitimleri, bilgisayar mühendisliğine yeni gelen mühendis adaylarının geleceğe dair hedef oluşturmalarını, üst sınıf ve alt sınıflar arasında etkileşim kurmayı amaçlamaktadır. Komite ekip üyesi Esra Nur Akbulut, komite ekip üyesi Ayşegül Çemç ve komite başkanı Beyza Nur Özben çeşitli ders, yazılım dili ve konular hakkında mentörlük programları düzenleyerek katılımcılara rehberlik etmiştir. Bu programlar, öğrencilerin bilgi ve becerilerini geliştirmelerine, kariyer hedeflerini belirlemelerine ve sektöre daha iyi hazırlanmalarına yardımcı olmuştur.
-      </p>
+        <p>
+          Komite eğitimleri, bilgisayar mühendisliğine yeni gelen mühendis adaylarının geleceğe dair hedef oluşturmalarını, üst sınıf ve alt sınıflar arasında etkileşim kurmayı amaçlamaktadır. Komite ekip üyesi Esra Nur Akbulut, komite ekip üyesi Ayşegül Çemç ve komite başkanı Beyza Nur Özben çeşitli ders, yazılım dili ve konular hakkında mentörlük programları düzenleyerek katılımcılara rehberlik etmiştir. Bu programlar, öğrencilerin bilgi ve becerilerini geliştirmelerine, kariyer hedeflerini belirlemelerine ve sektöre daha iyi hazırlanmalarına yardımcı olmuştur.
+        </p>
       </div>
     </section>
 
@@ -261,7 +260,7 @@ const resolveImage = (filename: string) => `/${encodeURIComponent(filename)}`;
   .poster-image {
     display: block;
     width: 100%;
-    height: 280px;
+    height: 430px;
     object-fit: cover;
     background: #f3efe8;
   }

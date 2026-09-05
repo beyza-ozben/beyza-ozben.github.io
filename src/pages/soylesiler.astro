@@ -1,49 +1,231 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const posters = [
+  {
+    title: 'Enes Erdoğan ile Teknik Söyleşi',
+    tag: '24 Ekim 2025',
+    src: 'Afiş-24EkimEnesBey.jpg'
+  },
+  {
+    title: 'Kartal Derin ile Teknik Söyleşi',
+    tag: '26 Kasım 2025',
+    src: 'Afiş-26Kasım-KartalDerin.jpg'
+  },
+  {
+    title: 'Emre Kurt ile Teknoloji ve Kariyer Söyleşisi',
+    tag: '3 Aralık 2025',
+    src: 'Afiş-3Aralık-EmreKurt.jpg'
+  },
+  {
+    title: 'Baki Gül ile Teknik Söyleşi',
+    tag: '4 Mart 2026',
+    src: 'Afiş-4Mart-BakiGül.jpg'
+  },
+  {
+    title: 'Ege Kaan Işık ile Teknik Söyleşi',
+    tag: '11 Mart 2026',
+    src: 'Afiş-11Mart-EgeKaanIşık.jpg'
+  },
+  {
+    title: 'Nazlı Koçak ile Teknoloji ve Kariyer Söyleşisi',
+    tag: '22 Nisan 2026',
+    src: 'Afiş-22 Nisan-NazlıKoçak.jpg'
+  }
+];
+
+const gallery = [
+  { src: 'SS-EnesErdoğan.jpg', alt: 'Enes Erdoğan ile Docker ve Kubernetes Söyleşisi' },
+  { src: 'SS-KartalDerin.jpg', alt: 'Kartal Derin ile Yapay Zeka ve Makine Öğrenmesi Söyleşisi' },
+  { src: 'EmreKurt.jpg', alt: 'Emre Kurt ile Teknoloji ve Kariyer Söyleşisi' },
+  { src: 'EmreKurt2.jpg', alt: 'Emre Kurt ile Teknoloji ve Kariyer Söyleşisi' },
+  { src: 'SS-BakiGül.jpeg', alt: 'Baki Gül ile AI Agent Söyleşisi' },
+  { src: 'SS-EgeKaanIşık.jpeg', alt: 'Ege Kaan Işık ile Toplulukların Network Gücü Hakkında Söyleşi' },
+  { src: 'SS-NazlıKoçak.jpeg', alt: 'Nazlı Koçak ile Teknoloji ve Kariyer Söyleşisi' }
+];
+
+const videoItem = {
+  src: 'EmreKurt.mp4',
+  alt: 'Emre Kurt Bey söyleşi videosu',
+};
+
+const resolveImage = (filename: string) => `/${encodeURIComponent(filename)}`;
 ---
 
 <Layout title="Beyza | Söyleşiler">
   <main class="page">
-
     <section class="hero">
-      <p class="eyebrow">Söyleşi</p>
+      <p class="eyebrow">Söyleşiler</p>
       <h1>Yüzyüze ve Online Söyleşiler</h1>
       <div class="intro intro-block">
         <p>
-          Sektör içinden mühendislik profesyonelleriyle gerçekleştirilen söyleşiler, katılımcılara
-          kariyer, teknoloji ve mesleki gelişim üzerine değerli içerikler sundu.
-        </p>
-        <p>
-          Hem yüz yüze hem de online formatlarla düzenlenen bu etkinlikler, farklı mekân ve zaman
-          koşullarında da erişilebilir, samimi ve öğretici bir öğrenme deneyimi sağladı.
+          Sektörden mühendislerin katılımıyla gerçekleştirdiğimiz söyleşilerde, kariyer ve güncel teknolojiler üzerine odaklandık. Özellikle yapay zekâ ekseninde kurguladığımız oturumları hem yüz yüze hem de çevrim içi formatlarda düzenleyerek, mühendis adaylarına zamandan ve mekândan bağımsız, erişilebilir ve verimli bir öğrenme ortamı sunduk.
         </p>
       </div>
     </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Afişler</h2>
+      </div>
+
+      <div class="poster-grid">
+        {posters.map((poster) => (
+          <article class="poster-card">
+            <img src={resolveImage(poster.src)} alt={poster.title} class="poster-image enlargeable" />
+            <div class="poster-content">
+              <span class="poster-tag">{poster.tag}</span>
+              <h3>{poster.title}</h3>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section text-section">
+      <div class="section-heading">
+        <h2>Yapılanlar</h2>
+      </div>
+      <div class="text-block">
+        <ul>
+          <li><strong>Sektör Sohbetleri:</strong> Mühendislik profesyonelleriyle gerçekleştirilerek kariyer fırsatları ve iş hayatı hakkında değerli bilgiler paylaşıldı.</li>
+          <li><strong>Teknoloji Odaklı Konuşmalar:</strong> Yapay zeka, yazılım geliştirme, veri ve kariyer yol haritaları gibi konular ele alındı.</li>
+          <li><strong>Yüz Yüze ve Online Erişim:</strong> Farklı zaman ve mekân koşullarında da etkinliklere katılım sağlandı.</li>
+          <li><strong>Katılımcı Etkileşimi:</strong> Soru-cevap oturumlarıyla katılımcıların uzmanlarla doğrudan iletişim kurması teşvik edildi.</li>
+          <li><strong>Mesleki Gelişim:</strong> Etkinlikler, öğrencilerin teknik bilgi ve motivasyon seviyelerini yükseltmeyi hedefledi.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Fotoğraf Galerisi</h2>
+      </div>
+
+      <div class="photo-grid">
+        {gallery.map((item) => (
+          <figure class="photo-card">
+            <img src={resolveImage(item.src)} alt={item.alt} class="photo-image enlargeable" />
+          </figure>
+        ))}
+
+        <figure class="photo-card video-card">
+          <video
+            class="video-player"
+            src={resolveImage(videoItem.src)}
+            muted
+            playsinline
+            preload="metadata"
+          />
+          <div class="video-overlay">
+            <span class="play-badge">▶ Oynat</span>
+          </div>
+        </figure>
+      </div>
+    </section>
   </main>
+
+  <div id="image-modal" class="image-modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <button id="modal-close" class="modal-close" aria-label="Kapat">×</button>
+      <img id="modal-img" src="" alt="" />
+      <p id="modal-caption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('modal-img');
+      const modalCaption = document.getElementById('modal-caption');
+      const modalClose = document.getElementById('modal-close');
+      const backdrop = document.getElementById('modal-backdrop');
+
+      function openModal(src: string, alt: string) {
+        if (!modal || !(modalImg instanceof HTMLImageElement)) return;
+        modalImg.src = src || '';
+        modalImg.alt = alt || '';
+        if (modalCaption) modalCaption.textContent = alt || '';
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        if (modalImg instanceof HTMLImageElement) {
+          modalImg.src = '';
+          modalImg.alt = '';
+        }
+        if (modalCaption) modalCaption.textContent = '';
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+
+        const video = target.closest('.video-player');
+        if (video instanceof HTMLVideoElement) {
+          event.stopPropagation();
+          if (video.paused) {
+            video.play().catch(() => undefined);
+          } else {
+            video.pause();
+          }
+          return;
+        }
+
+        const img = target.closest('.enlargeable');
+        if (img instanceof HTMLImageElement) {
+          openModal(img.getAttribute('src') || '', img.getAttribute('alt') || '');
+        }
+      });
+
+      if (modalClose) modalClose.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeModal();
+      });
+    })();
+  </script>
 </Layout>
 
 <style>
-  .top-bar {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px 24px 0;
-  }
-
-  .back-home {
-    display: inline-block;
-    color: var(--accent-1);
-    font-weight: 700;
+  :global(body) {
+    margin: 0;
+    font-family: 'Courier New', Courier, 'Roboto Mono', ui-monospace, system-ui;
+    background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color: var(--text);
   }
 
   .page {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 32px 24px 80px;
+    padding: 64px 24px 80px;
   }
 
   .hero {
     text-align: center;
-    padding: 20px 0 24px;
+    padding: 32px 0 36px;
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1;
   }
 
   .intro {
@@ -69,29 +251,223 @@ import Layout from '../layouts/Layout.astro';
     line-height: 1.9;
   }
 
-  .eyebrow {
-    margin: 0 0 12px;
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
+  .section {
+    margin-top: 48px;
+  }
+
+  .section-heading {
+    margin-bottom: 24px;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+  }
+
+  .poster-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .poster-card {
+    overflow: hidden;
+    border: 4px solid var(--border-strong);
+    background: var(--card-bg);
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .poster-image {
+    display: block;
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+    background: #f3efe8;
+    cursor: pointer;
+  }
+
+  .poster-content {
+    padding: 16px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .poster-tag {
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--accent-1);
     font-weight: 700;
   }
 
-  h1 {
+  .poster-content h3 {
     margin: 0;
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--text);
   }
 
-  .section {
-    margin-top: 32px;
+  .text-section {
+    padding: 0;
   }
 
-  .content-card {
-    background: var(--card-bg);
+  .text-block {
+    background: rgba(255, 255, 255, 0.4);
     border: 4px solid var(--border-strong);
-    padding: 28px;
-    line-height: 1.8;
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+    padding: 28px 24px;
     color: var(--muted);
+  }
+
+  .text-block ul {
+    margin: 0;
+    padding-left: 1.3rem;
+    display: grid;
+    gap: 12px;
+    font-weight: 700;
+    line-height: 1.9;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .photo-card {
+    margin: 0;
+    overflow: hidden;
+    border: 4px solid var(--border-strong);
+    background: var(--card-bg);
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .photo-image {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #f3efe8;
+  }
+
+  .video-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    background: #111;
+  }
+
+  .video-player {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #000;
+  }
+
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.18);
+  }
+
+  .play-badge {
+    background: rgba(255, 255, 255, 0.88);
+    color: #111;
+    border: 3px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .image-modal:not(.hidden) {
+    pointer-events: auto;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .modal-content {
+    position: relative;
+    z-index: 1;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .modal-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    border: 4px solid var(--border-strong);
+    background: var(--card-bg);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .modal-caption {
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  @media (max-width: 980px) {
+    .poster-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .poster-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .poster-image {
+      height: 360px;
+    }
   }
 </style>
