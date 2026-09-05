@@ -5,16 +5,39 @@ import EventCard from '../components/EventCard.astro';
 
 const events = [
   {
-    title: "O KOD OMÜ Hackathon",
-    category: "Workshop & Yarışma",
-    attendees: 50,
-    description: "4 kişilik ekiplerin yarıştığı 1 saatlik algoritmik kodlama etkinliği."
+    title: "Mentörlük Programları",
+    category: "Eğitim",
+    attendees: 500,
+    description: "Bölüm içerisindeki etkileşimi artırmak ve öğrencilerin gelişimine katkıda bulunmak amacıyla gerçekleştirilen mentörlük programları.",
+    href: "/mentorluk"
   },
   {
-    title: "Savunma Sanayii Günleri",
-    category: "Söyleşi / Zirve",
-    attendees: 300,
-    description: "Sektör liderlerinin katılımıyla gerçekleştirilen teknik oturumlar."
+    title: "O-KOD-OMÜ",
+    category: "Workshop",
+    attendees: 50,
+    description: "4 kişilik ekiplerin yarıştığı 1 saatlik mantık kurma ve kodlama yarışması.",
+    href: "/Workshop"
+  },
+  {
+    title: "Savunma Sanayi Günleri",
+    category: "Zirve",
+    attendees: 1000,
+    description: "Sektör liderlerinin katılımıyla gerçekleştirilen teknik oturumlar! ",
+    href: "/savunma-sanayi-gunleri"
+  },
+  {
+    title: "OMÜHENDİS",
+    category: "Zirve",
+    attendees: 1000,
+    description: "Sektör liderlerinin katılımıyla gerçekleştirilen sosyal oturumlar! ",
+    href: "/omuhendis"
+  },
+  {
+    title: "Yüzyüze ve Online Söyleşiler",
+    category: "Söyleşi",
+    attendees: 200,
+    description: "Sektör içinden mühendislerle gerçekleştirilen online söyleşiler.",
+    href: "/soylesiler"
   }
 ];
 ---
@@ -23,22 +46,23 @@ const events = [
   <main class="page">
     <section class="hero">
       <p class="eyebrow">Ana Sayfa</p>
-      <h1>Beyza'nın Etkinlikleri ve Projeleri</h1>
-      <p class="intro">IEEE CS Komite çalışmaları, workshoplar ve projelerle ilgili öne çıkan içerikler.</p>
+      <h1>CS KOMİTESİ</h1>
+      <p class="intro">OMÜ IEEE Computer Society Komitesi 2025-2026 Dönemi</p>
     </section>
 
     <section class="section">
       <div class="section-heading">
-        <h2>Yaklaşan Etkinlikler</h2>
+        <h2>Gerçekleştirilen Eğitim, Etkinlik ve Söyleşiler</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {events.map((event) => (
-          <EventCard 
-            title={event.title} 
-            category={event.category} 
-            attendees={event.attendees} 
-            description={event.description} 
+          <EventCard
+            title={event.title}
+            category={event.category}
+            attendees={event.attendees}
+            description={event.description}
+            href={event.href}
           />
         ))}
       </div>
@@ -48,9 +72,9 @@ const events = [
   <style>
     :global(body) {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #f5f7ff 0%, #eef2ff 100%);
-      color: #1f2937;
+      font-family: 'Courier New', Courier, 'Roboto Mono', ui-monospace, system-ui;
+      background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      color: var(--text);
     }
 
     .page {
@@ -69,7 +93,7 @@ const events = [
       font-size: 0.8rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #5b6ef7;
+      color: var(--accent-1);
       font-weight: 700;
     }
 
@@ -84,7 +108,7 @@ const events = [
       margin: 24px auto 0;
       font-size: 1.08rem;
       line-height: 1.8;
-      color: #4b5563;
+      color: var(--muted);
     }
   </style>
 </Layout>

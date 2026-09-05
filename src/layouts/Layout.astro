@@ -20,14 +20,15 @@ import Nav from '../components/Nav.astro';
 
 <style>
 	:root{
-		--color-primary: #d946ef; /* fuchsia */
-		--color-primary-600: #be1fbf;
-		--color-accent: #f5c6e6; /* dusty pink */
-		--color-muted: #6b7280;
-		--bg-start: #fff5f9;
-		--bg-end: #fff0f6;
-		--text-on-primary: #ffffff;
-		--card-bg: #ffffff;
+		/* Brutalist / Retro-block palette */
+		--accent-1: #d65a2a; /* burnt orange */
+		--accent-2: #3e6b2f; /* olive green */
+		--muted: #2b2b2b;
+		--bg-start: #f6f3ee;
+		--bg-end: #e9e3d6;
+		--card-bg: #fffefb;
+		--border-strong: #1f1f1f;
+		--text: #111111;
 	}
 
 	html,
@@ -36,9 +37,9 @@ import Nav from '../components/Nav.astro';
 		width: 100%;
 		height: 100%;
 		background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
-		color: #111827;
-		font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+		color: var(--text);
+		font-family: 'Courier New', Courier, 'Roboto Mono', ui-monospace, system-ui;
 	}
 
-	a { color: var(--color-primary); }
+	a { color: var(--accent-1); text-decoration: none; }
 </style>

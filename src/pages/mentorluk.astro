@@ -1,0 +1,407 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const posters = [
+  {
+    title: 'Python 101 Eğitimi',
+    tag: '10-17 Aralık 2025',
+    src: 'Afiş-10-17Aralık-PythonMentörlük.jpg'
+  },
+  {
+    title: 'Veri Yapıları Mentörlük Programı',
+    tag: '24 Aralık 2025',
+    src: 'Afiş-24AralıkVeriYapıları.jpg'
+  },
+  {
+    title: 'Algoritma Mentörlük Programı',
+    tag: '25 Şubat-1 Nisan-8 Nisan 2026',
+    src: 'Afiş-25 Şubat 2026-AlgoritmaMentörlük.jpg'
+  }
+];
+
+const gallery = [
+  { src: 'CStanıtım-toplu.jpg', alt: 'CS komitesi tanıtım ve tanışma toplantısı' },
+  { src: 'CSTanıtım-beyza.jpg', alt: 'CS komitesi tanıtım ve tanışma toplantısı' },
+  { src: 'YapayZeka-BeyzaToplu.jpg', alt: 'Yapay zeka 101, K-Means Algoritması toplu fotoğrafı' },
+  { src: 'python-toplu.jpg', alt: 'Python 101 mentörlük eğitimi' },
+  { src: 'PythonMentörlükToplu.jpg', alt: 'Python 101 mentörlük eğitimi' },
+  { src: 'VeriYapılarıMentörlükToplu.jpg', alt: 'Veri yapıları mentörlük fotoğrafı' },
+  { src: 'AlgoritmaMentörlükToplu.jpg', alt: 'Algoritma mentörlük programı' },
+  { src: 'AlgoritmaMentörlükToplu2.jpg', alt: 'Algoritma mentörlük programı' },
+  { src: 'AlgoritmaMentörlük-2Toplu2.jpg', alt: 'Algoritma mentörlük programı' },
+  { src: 'AlgoritmaMentörlük-2Toplu.jpg', alt: 'Algoritma mentörlük programı'}
+];
+
+const resolveImage = (filename: string) => `/${encodeURIComponent(filename)}`;
+---
+
+<Layout title="Beyza | Mentörlük">
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Mentörlük</p>
+      <h1>Komite Eğitimleri</h1>
+      <div class="intro intro-block">
+      <p class="intro">
+        Komite eğitimleri, bilgisayar mühendisliğine yeni gelen mühendis adaylarının geleceğe dair hedef oluşturmalarını, üst sınıf ve alt sınıflar arasında etkileşim kurmayı amaçlamaktadır. Komite ekip üyesi Esra Nur Akbulut, komite ekip üyesi Ayşegül Çemç ve komite başkanı Beyza Nur Özben çeşitli ders, yazılım dili ve konular hakkında mentörlük programları düzenleyerek katılımcılara rehberlik etmiştir. Bu programlar, öğrencilerin bilgi ve becerilerini geliştirmelerine, kariyer hedeflerini belirlemelerine ve sektöre daha iyi hazırlanmalarına yardımcı olmuştur.
+      </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Afişler</h2>
+      </div>
+
+      <div class="poster-grid">
+        {posters.map((poster) => (
+          <article class="poster-card">
+            <img src={resolveImage(poster.src)} alt={poster.title} class="poster-image enlargeable" />
+            <div class="poster-content">
+              <span class="poster-tag">{poster.tag}</span>
+              <h3>{poster.title}</h3>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+    <section class="section text-section">
+      <div class="section-heading">
+        <h2>Yapılanlar</h2>
+      </div>
+      <div class="text-block">
+        <p>
+        <ul>
+          <li><strong>Tanışma Toplantısı:</strong> "Computer Society komitesi kimdir" sorusu yanıtlanarak sene boyunca planlanan etkinlikler hakkında bilgi verildi.</li>
+          <li><strong>K-Means Algoritması:</strong> Yapay zeka hakkında giriş bilgi verildi ve makine öğrenmesi konularından "K-Means Algoritması" görselleştirilerek anlatıldı.</li>
+          <li><strong>Python 101:</strong> Python programlama dili hakkında temel bilgiler verildi. En sık kullanılan kütüphaneler ve fonksiyonlar anlatıldı.</li>
+          <li><strong>Veri Yapıları:</strong> Kuyruk, yığın, ağaç, graf gibi temel veri yapıları anlatıldı. Uygulama ile desteklendi.</li>
+          <li><strong>Algoritma:</strong> En temel sıralama ve arama algoritmaları hakkında detaylı bilgi verildi. Her hafta yeni örnekler ile konu pekiştirildi.</li>
+        </ul>
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Fotoğraf Galerisi</h2>
+      </div>
+
+      <div class="photo-grid">
+        {gallery.map((item) => (
+          <figure class="photo-card">
+            <img src={resolveImage(item.src)} alt={item.alt} class="photo-image enlargeable" />
+          </figure>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <div id="image-modal" class="image-modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <button id="modal-close" class="modal-close" aria-label="Kapat">×</button>
+      <img id="modal-img" src="" alt="" />
+      <p id="modal-caption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('modal-img');
+      const modalCaption = document.getElementById('modal-caption');
+      const modalClose = document.getElementById('modal-close');
+      const backdrop = document.getElementById('modal-backdrop');
+
+      function openModal(src: string, alt: string) {
+        if (!modal || !(modalImg instanceof HTMLImageElement)) return;
+        modalImg.src = src || '';
+        modalImg.alt = alt || '';
+        if (modalCaption) modalCaption.textContent = alt || '';
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        if (modalImg instanceof HTMLImageElement) {
+          modalImg.src = '';
+          modalImg.alt = '';
+        }
+        if (modalCaption) modalCaption.textContent = '';
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const img = target.closest('.enlargeable');
+        if (img instanceof HTMLImageElement) {
+          openModal(img.getAttribute('src') || '', img.getAttribute('alt') || '');
+        }
+      });
+
+      if (modalClose) modalClose.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeModal();
+      });
+    })();
+  </script>
+</Layout>
+
+<style>
+  :global(body) {
+    margin: 0;
+    font-family: 'Courier New', Courier, 'Roboto Mono', ui-monospace, system-ui;
+    background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color: var(--text);
+  }
+
+
+  .top-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 24px 0;
+  }
+
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+
+  .back-home:hover {
+    opacity: 0.8;
+  }
+
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 32px 0 36px;
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  .intro {
+    max-width: 760px;
+    margin: 24px auto 0;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .intro-block {
+    text-align: justify;
+    max-width: 900px;
+    padding: 28px 24px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 4px solid var(--border-strong);
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .intro-block p,
+  .intro-block li {
+    font-weight: 700;
+    line-height: 1.9;
+  }
+  .section {
+    margin-top: 48px;
+  }
+
+  .section-heading {
+    margin-bottom: 24px;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+  }
+
+  .poster-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .poster-card {
+    overflow: hidden;
+    border: 4px solid var(--border-strong);
+    background: var(--card-bg);
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .poster-image {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    background: #f3efe8;
+  }
+
+  .poster-content {
+    padding: 22px 18px 20px;
+  }
+
+  .poster-tag {
+    display: inline-block;
+    width: fit-content;
+    padding: 6px 10px;
+    margin-bottom: 16px;
+    background: var(--accent-1);
+    color: white;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .poster-card h3 {
+    margin: 0;
+    font-size: clamp(1.4rem, 2vw, 2rem);
+    line-height: 1.2;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .photo-card {
+    margin: 0;
+    border: 4px solid var(--border-strong);
+    background: var(--card-bg);
+    overflow: hidden;
+    min-height: 220px;
+  }
+
+  .photo-image {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #f3efe8;
+  }
+
+  .text-section {
+    padding-top: 8px;
+  }
+
+  .text-block {
+    border: 4px solid var(--border-strong);
+    background: rgba(255, 255, 255, 0.56);
+    padding: 28px 24px;
+  }
+
+  .text-block p {
+    margin: 0;
+    max-width: 860px;
+    font-size: 1.08rem;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .image-modal:not(.hidden) {
+    pointer-events: auto;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .modal-content {
+    position: relative;
+    z-index: 1;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .modal-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    border: 4px solid var(--border-strong);
+    background: var(--card-bg);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .modal-caption {
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  @media (max-width: 760px) {
+    .top-bar,
+    .page {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .poster-grid,
+    .photo-grid {
+      grid-template-columns: 1fr;
+    }
+    
+  }
+</style>
