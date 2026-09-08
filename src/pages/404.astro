@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Beyza | Sayfa Bulunamadı">
+  <main class="page">
+    <section class="not-found">
+      <p class="eyebrow">404</p>
+      <h1>Sayfa bulunamadı</h1>
+      <p class="message">
+        Aradığınız sayfa taşınmış, silinmiş veya yanlış bir adres girilmiş olabilir.
+      </p>
+      <a href="/" class="home-link">Ana sayfaya dön</a>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  :global(body) {
+    margin: 0;
+    font-family: 'Courier New', Courier, 'Roboto Mono', ui-monospace, system-ui;
+    background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color: var(--text);
+  }
+
+  .page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 40px 24px;
+  }
+
+  .not-found {
+    text-align: center;
+    max-width: 680px;
+    padding: 48px 28px;
+    background: rgba(255, 255, 255, 0.38);
+    border: 4px solid var(--border-strong);
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.3rem, 6vw, 4rem);
+    line-height: 1.1;
+  }
+
+  .message {
+    margin: 20px auto 0;
+    max-width: 560px;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .home-link {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 12px 22px;
+    text-decoration: none;
+    background: var(--accent-1);
+    color: white;
+    border: 3px solid var(--border-strong);
+    font-weight: 700;
+    transition: transform 0.12s ease;
+  }
+
+  .home-link:hover {
+    transform: translateY(-2px);
+  }
+</style>
