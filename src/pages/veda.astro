@@ -1,0 +1,371 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const photos = [
+  { src: 'CS-VedaEkip.jpg', alt: 'Son ekip fotoğrafı' },
+  { src: 'CSVeda-Toplu.jpg', alt: 'Etkinlikten fotoğraflar' },
+  { src: 'CSVeda-Toplu4.jpg', alt: 'Etkinlikten fotoğraflar' },
+  { src: 'CSVeda-Toplu2.jpg', alt: 'Etkinlikten fotoğraflar' },
+  { src: 'CSVeda-Toplu3.jpg', alt: 'Etkinlikten fotoğraflar' },
+  { src: 'CSVeda-HediyeAli.jpg', alt: 'Etkinlikten fotoğraflar' },
+  { src: 'CSVeda-HediyeBeyza.jpg', alt: 'Etkinlikten fotoğraflar' },
+  { src: 'CSVeda-HediyeEsra.jpg', alt: 'Etkinlikten fotoğraflar' },
+  { src: 'Veda.jpg', alt: 'Etkinlikten fotoğraflar' }
+];
+
+const videoItem = {
+  src: 'CSVeda.mp4',
+  alt: 'CS\'e Veda etkinliği videosu',
+};
+
+function resolvePath(p = '') {
+  if (!p) return '';
+  if (p.startsWith('/public/')) return p.replace(/^\/public\//, '/');
+  if (p.startsWith('/')) return p;
+  return `/${p}`;
+}
+
+const heroImage = 'CS-VedaBroşür.jpg';
+const heroAlt = 'CS\'e Veda';
+---
+
+<Layout title="Beyza | CS'e Veda Etkinliği">
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Etkinlik</p>
+      <h1>Komite Veda Etkinliği</h1>
+      {heroImage ? (
+        <div class="hero-image">
+          <img src={resolvePath(heroImage)} alt={heroAlt} />
+        </div>
+      ) : null}
+      <div class="intro intro-block">
+        <p>
+            IEEE OMU 2025-2026 Computer Society Komitesi olarak, 2025-2026 dönemi boyunca gerçekleştirdiğimiz etkinliklerin ardından, 2026 yılında düzenlediğimiz veda etkinliği ile bu dönemi onurlandırdık. Bu etkinlik, komitemizin çalışmalarını ve başarılarını kutlamak, üyelerimizi ve destekçilerimizi bir araya getirmek amacıyla düzenlendi. Çeşitli oyunlar oynayarak eğlenceli vakit geçirdik. Etkinlik, komitemizin bir araya gelerek başarılarını kutlaması ve geleceğe dair motivasyon sağlaması açısından önemli bir fırsat oldu. Dönem boyunca bizlere eşlik eden tüm destekçilerimize teşekkürlerimizi sunarız. Yeni dönemde yeniden bir araya gelmek dileğiyle!
+        </p>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Etkinlikten Kareler</h2>
+      </div>
+
+      <div class="gallery">
+        {photos.map((photo) => (
+          <figure class="card">
+            <img class="enlargeable" src={resolvePath(photo.src)} alt={photo.alt} />
+          </figure>
+        ))}
+
+        <figure class="card video-card">
+          <video
+            class="video-player"
+            src={resolvePath(videoItem.src)}
+            muted
+            playsinline
+            preload="metadata"
+          />
+          <div class="video-overlay">
+            <span class="play-badge">▶ Oynat</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <div id="image-modal" class="image-modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <button id="modal-close" class="modal-close" aria-label="Kapat">×</button>
+      <img id="modal-img" src="" alt="" />
+      <p id="modal-caption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('modal-img');
+      const modalCaption = document.getElementById('modal-caption');
+      const modalClose = document.getElementById('modal-close');
+      const backdrop = document.getElementById('modal-backdrop');
+
+      function openModal(src: string, alt: string) {
+        if (!modal || !(modalImg instanceof HTMLImageElement)) return;
+        modalImg.src = src || '';
+        modalImg.alt = alt || '';
+        if (modalCaption) modalCaption.textContent = alt || '';
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        if (modalImg instanceof HTMLImageElement) {
+          modalImg.src = '';
+          modalImg.alt = '';
+        }
+        if (modalCaption) modalCaption.textContent = '';
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+
+        const video = target.closest('.video-player');
+        if (video instanceof HTMLVideoElement) {
+          event.stopPropagation();
+          if (video.paused) {
+            video.play().catch(() => undefined);
+          } else {
+            video.pause();
+          }
+          return;
+        }
+
+        const img = target.closest('.enlargeable');
+        if (img instanceof HTMLImageElement) {
+          openModal(img.getAttribute('src') || '', img.getAttribute('alt') || '');
+        }
+      });
+
+      if (modalClose) modalClose.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeModal();
+      });
+    })();
+  </script>
+</Layout>
+
+<style>
+  .top-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 24px 0;
+  }
+
+  .back-home {
+    display: inline-block;
+    color: var(--accent-1);
+    font-weight: 700;
+  }
+
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 20px 0 24px;
+  }
+
+  .intro {
+    max-width: 760px;
+    margin: 24px auto 0;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .intro-block {
+    text-align: justify;
+    max-width: 900px;
+    padding: 28px 24px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 4px solid var(--border-strong);
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .intro-block p,
+  .intro-block li {
+    font-weight: 700;
+    line-height: 1.9;
+  }
+
+  .hero-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 90vh;
+  }
+
+  @media (max-width: 760px) {
+    .hero-image img {
+      max-height: 60vh;
+    }
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .section {
+    margin-top: 32px;
+  }
+
+  .section-heading {
+    text-align: center;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+  }
+
+  .content-card {
+    background: var(--card-bg);
+    border: 4px solid var(--border-strong);
+    padding: 28px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .card {
+    margin: 0;
+    overflow: hidden;
+    border: 4px solid var(--border-strong);
+    background: var(--card-bg);
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .card img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #f3efe8;
+  }
+
+  .video-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    background: #111;
+    position: relative;
+    overflow: hidden;
+    border: 4px solid var(--border-strong);
+    box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .video-player {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #000;
+  }
+
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.18);
+  }
+
+  .play-badge {
+    background: rgba(255, 255, 255, 0.88);
+    color: #111;
+    border: 3px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 rgba(17, 17, 17, 0.12);
+  }
+
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .image-modal:not(.hidden) {
+    pointer-events: auto;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .modal-content {
+    position: relative;
+    z-index: 1;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .modal-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    border: 4px solid var(--border-strong);
+    background: var(--card-bg);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .modal-caption {
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
