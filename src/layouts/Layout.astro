@@ -11,6 +11,15 @@ import Nav from '../components/Nav.astro';
 		<link rel="icon" href="/public/BeyzaPortfolio.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>CS KOMİTESİ</title>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-22NSTEP2VW"></script>
+		<script is:inline>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'G-22NSTEP2VW');
+		</script>
 	</head>
 	<body>
 		<Nav />
