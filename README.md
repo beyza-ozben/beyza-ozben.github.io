@@ -1,4 +1,4 @@
-# IEEE OMÜ Computer Society — 2025–2026 Term Portfolio
+# IEEE OMÜ Computer Society — 2025–2026 CS Committee Portfolio
 
 Bu repository, **IEEE Ondokuz Mayıs Üniversitesi (OMÜ) Computer Society** komitesinin 2025–2026 çalışma dönemi boyunca gerçekleştirdiği etkinlikleri, teknik atölyeleri, projeleri ve topluluk faaliyetlerini sergilemek amacıyla hazırlanmış resmi portfolyo web sitesinin kaynak kodlarını içerir.
 
@@ -80,6 +80,6 @@ git push origin main
 
 ## 👤 İletişim & Geliştirici
 
-* **Geliştirici:** Beyza Özben
+* **Geliştirici:** Beyza Nur Özben
 * **GitHub:** [@beyza-ozben](https://github.com/beyza-ozben)
-* **Topluluk:** [IEEE OMÜ Student Branch](https://www.ieeeomu.com/)
+* **Topluluk:** [IEEE OMÜ Student Branch](https://ieee.omu.edu.tr/)
